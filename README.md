@@ -1,2 +1,2 @@
 # simonsaystoy
-Similar to buttontoy, but a different game
+Similar to [buttontoy](https://github.com/klapstoelpiloot/buttontoy), but a different game.
