@@ -1,15 +1,15 @@
 #include "simonsaystoy.h"
 
-class PlaybackState : public virtual IState
+class InputState : public virtual IState
 {
 private:
 
     int sequence_position;
-    unsigned long nexttime;
+    bool failed;
 
 public:
 
-    PlaybackState();
+    InputState();
 
     // Called when entering this state.
     virtual void Enter() override;

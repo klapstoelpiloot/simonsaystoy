@@ -5,12 +5,12 @@
 // Constructor
 Button::Button()
 {
-  pin = 0;
-	changetime = 0;
-	laststate = false;
-  down = false;
-  pressed = false;
-  released = false;
+    pin = 0;
+    changetime = 0;
+    laststate = false;
+    down = false;
+    pressed = false;
+    released = false;
 }
 
 // Destructor
@@ -26,27 +26,27 @@ void Button::Init(int buttonpin)
 
 void Button::Update()
 {
-  unsigned long t = millis();
+    unsigned long t = millis();
 
-  // See if the pin state changed
-	bool pinstate = (digitalRead(pin) == LOW);
-  if(pinstate != laststate)
-  {
-    laststate = pinstate;
-    changetime = t;
-  }
+    // See if the pin state changed
+    bool pinstate = (digitalRead(pin) == LOW);
+    if(pinstate != laststate)
+    {
+        laststate = pinstate;
+        changetime = t;
+    }
 
-  pressed = false;
-  released = false;
+    pressed = false;
+    released = false;
 
-  // Debounce and update state
-  if((laststate != down) && ((t - changetime) > DEBOUNCE_TIMEOUT))
-  {
-      down = laststate;
+    // Debounce and update state
+    if((laststate != down) && ((t - changetime) > DEBOUNCE_TIMEOUT))
+    {
+        down = laststate;
 
-      if(laststate)
-          pressed = true;
-      else
-          released = true;
-  }
+        if(laststate)
+            pressed = true;
+        else
+            released = true;
+    }
 }

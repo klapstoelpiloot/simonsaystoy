@@ -1,22 +1,31 @@
 #include <Wire.h>
 #include "simonsaystoy.h"
-#include "SoundsEffects.h"
 #include "PlaybackState.h"
+#include "InputState.h"
+#include "FailedState.h"
+#include "RewardState.h"
 
-// Global objects
+// Globally accessible objects
 Speaker speaker;
 Seeed_Digital_Tube display;
 Button buttons[NUM_BUTTONS];
 LED leds[NUM_BUTTONS];
 int sequence_length;
 int sequence[MAX_SEQUENCE_LENGTH];
-IState* currentstate = nullptr;
-PlaybackState playbackstate;
+SoundRed soundred;
+SoundGreen soundgreen;
+SoundBlue soundblue;
+SoundYellow soundyellow;
+IMelody* ledsounds[NUM_BUTTONS] = { &soundred, &soundgreen, &soundblue, &soundyellow };
+RewardSound rewardsound;
+FailureSound failsound;
 
-// LED toggle sounds
-ToggleSound0 togglesound0;
-ToggleSound1 togglesound1;
-ToneRed tonered;
+// Local objects
+PlaybackState playbackstate;
+InputState inputstate;
+FailedState failedstate;
+RewardState rewardstate;
+IState* currentstate = nullptr;
 
 void setup()
 {
@@ -42,9 +51,8 @@ void setup()
     // Initialize random numbers
     randomSeed(analogRead(PIN_UNCONNECTED));
 
-    // Test
-    speaker.Play(tonered);
-
+    delay(1000);
+    sequence_length = 0;
     StartPlaybackState();
 }
 
@@ -55,15 +63,15 @@ void loop()
     // Do the button logic and let the running state know of any button presses
     for(int i = 0; i < NUM_BUTTONS; i++)
     {
-      buttons[i].Update();
-      if(buttons[i].IsPressed())
-      {
-          currentstate->OnButtonPress(i);
-      }
-      else if(buttons[i].IsReleased())
-      {
-          currentstate->OnButtonRelease(i);
-      }
+        buttons[i].Update();
+        if(buttons[i].IsPressed())
+        {
+            currentstate->OnButtonPress(i);
+        }
+        else if(buttons[i].IsReleased())
+        {
+            currentstate->OnButtonRelease(i);
+        }
     }
 
     currentstate->Update();
@@ -72,18 +80,21 @@ void loop()
 // Generic state changing logic
 void ChangeState(IState* newstate)
 {
-  if(currentstate != nullptr)
-  {
-    currentstate->Leave();
-  }
+    if(currentstate != nullptr)
+    {
+        currentstate->Leave();
+    }
 
-  currentstate = newstate;
+    currentstate = newstate;
 
-  if(currentstate != nullptr)
-  {
-    currentstate->Enter();
-  }
+    if(currentstate != nullptr)
+    {
+        currentstate->Enter();
+    }
 }
 
 // Accessible methods for states to change to another state
 void StartPlaybackState() { ChangeState(&playbackstate); }
+void StartInputState() { ChangeState(&inputstate); }
+void StartFailedState() { ChangeState(&failedstate); }
+void StartRewardState() { ChangeState(&rewardstate); }

@@ -13,3 +13,4 @@
 
 #define NUM_BUTTONS          4
 #define MAX_SEQUENCE_LENGTH 99
+#define NOTE_DURATION       800
