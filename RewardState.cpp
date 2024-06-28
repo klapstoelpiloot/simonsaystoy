@@ -4,6 +4,7 @@
 
 RewardState::RewardState()
 {
+    nextstatetime = 0;
 }
 
 void RewardState::Enter()

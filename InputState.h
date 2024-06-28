@@ -5,6 +5,7 @@ class InputState : public virtual IState
 private:
 
     int sequence_position;
+    int pressed_index;
     bool failed;
 
 public:

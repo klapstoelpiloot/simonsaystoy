@@ -72,15 +72,12 @@ int SoundYellow::notecount = sizeof(SoundYellow::notes) / sizeof(SoundYellow::no
 
 // ========================================================================================================
 
-// Prince of persia (life potion)
 int RewardSound::notes[] = {
-    NOTE_GS3, NOTE_D4, NOTE_FS4, NOTE_G4, NOTE_A4, NOTE_B4,
-    NOTE_B3, NOTE_DS4, NOTE_FS4, NOTE_B4, NOTE_C5, NOTE_B4
+    NOTE_GS3, NOTE_D4, NOTE_FS4, NOTE_G4, NOTE_A4, NOTE_B4
 };
 
 int RewardSound::durations[] = {
-    850, 850, 850, 850, 850, 4160,
-    1250, 1250, 1250, 1250, 1250, 8320
+    850, 850, 850, 850, 850, 4160
 };
 
 int RewardSound::notecount = sizeof(RewardSound::notes) / sizeof(RewardSound::notes[0]);
@@ -88,11 +85,11 @@ int RewardSound::notecount = sizeof(RewardSound::notes) / sizeof(RewardSound::no
 // ========================================================================================================
 
 int FailureSound::notes[] = {
-    NOTE_E4, NOTE_C4, NOTE_B3, NOTE_A3, NOTE_G3, NOTE_F3, NOTE_E3, NOTE_D3, NOTE_C3
+    NOTE_E4, REST, NOTE_C4, NOTE_B3, NOTE_A3, NOTE_G3, NOTE_F3, NOTE_E3, NOTE_D3, NOTE_C3
 };
 
 int FailureSound::durations[] = {
-    4000, 300, 300, 300, 300, 300, 300, 300, 4000
+    2000, 100, 300, 300, 300, 300, 300, 300, 300, 6000
 };
 
 int FailureSound::notecount = sizeof(FailureSound::notes) / sizeof(FailureSound::notes[0]);
